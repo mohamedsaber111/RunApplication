@@ -45,7 +45,7 @@ typealias Polyline = MutableList<LatLng>
 //MutableList<Polyline> when start service and resume it many time then we have several polyline is list of polyline on map
 typealias Polylines = MutableList<Polyline>
 /*
-LifecycleService not service or intentService>> we need to observe from lifeData inside service class
+LifecycleService not service or intentService>> we need to observe from liveData inside service class
 and the observe fun of lifeData object need lifecycleOwner() so we use LifecycleService()
 ,use live data to tracking my location
 */
@@ -109,6 +109,7 @@ class TrackingService : LifecycleService() {
 
     //communication from our activity to service
     //override method that whenever to send commend to our services so when send an intent with an action attached to service class
+    //called every time you start service
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         //fun called whenever we send commend to our service (when send intent to this service)
         intent?.let {
@@ -178,7 +179,7 @@ class TrackingService : LifecycleService() {
                 delay(TIMER_UPDATE_INTERVAL)
             }
             //now outside while scope not tracking any more and we need last alpTime to timeRun
-            timeRun+= lapTime
+            timeRun += lapTime
         }
 
     }
@@ -329,7 +330,7 @@ class TrackingService : LifecycleService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(notificationManager)
         }
-        //create our notification
+        //create our foreground service by call startForeground() that take id of notifications and notification as parameters
         startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
 
         //after add action on notification then update time

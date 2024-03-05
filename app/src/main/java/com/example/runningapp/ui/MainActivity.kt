@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         //if activity destroyed and service still running then send pendingIntent in onCreate()
         navigateToTrackingFragmentIfNeeded(intent)
 
